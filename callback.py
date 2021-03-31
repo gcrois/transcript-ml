@@ -1,8 +1,6 @@
 from tensorflow import keras
 
-class CustomCallback(keras.callbacks.Callback):
-
-    l = []
+class CustomCallback(keras.callbacks.Callback, l):
 
     def on_train_begin(self, logs=None):
         keys = list(logs.keys())
@@ -20,7 +18,8 @@ class CustomCallback(keras.callbacks.Callback):
 
     def on_epoch_end(self, epoch, logs=None):
         keys = list(logs.keys())
-        print(logs)
+
+        l.append(logs['loss'], logs['val_loss'], logs['acc'], logs['val_acc'])
         #print("End epoch {} of training; got log keys: {}".format(epoch, keys))
 
         #l.append("Loss", "acc", "val_loss", "val_acc")
