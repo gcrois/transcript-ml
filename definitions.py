@@ -26,14 +26,14 @@ classification = {
 }
 
 PARAMETERS = {
-    "layers": set([2, 4, 8, 16, 32, 50]),
-    "rates": set([0.001, 0.01, 0.03, 0.05]),
-    "optimizer": set(["Adam", "RMSprop"]),
-    "filters": set([16, 32, 64, 96]),
-    "activation": set(["RELU"]),
-    "kernel_size": set([3]),
-    "momentum": set([.9]),
-    "epochs": set([75]),
+    "HiddenLayers": set([2, 4, 8, 16, 32, 50]),
+    "LearningRate": set([0.001, 0.01, 0.03, 0.05]),
+    "Optimizer": set(["Adam", "RMSprop"]),
+    "NumFilters": set([16, 32, 64, 96]),
+    "Activation": set(["RELU"]),
+    "KernelSize": set([3]),
+    "Momenetum": set([.9]),
+    "Epochs": set([75]),
 }
 
 ROWS = 70
