@@ -15,7 +15,7 @@ data = pd.DataFrame(
 
 for j in jobs[:2]:
     print("Starting job\n", j)
-    print(resnet.ResNet(**j))
+    data = data.append(resnet.ResNet(**j))
     print("Done with job\n")
 
 data.to_csv(f"data/{jobs[0]['JobNum']}_results.csv")
