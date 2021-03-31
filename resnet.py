@@ -92,7 +92,7 @@ def ResNet(HiddenLayers, LearningRate, Optimizer, NumFilters, Activation, Kernel
   )
 
   for i in range(len(history.history["loss"])):
-    data = data.append([
+    data.loc[len(data)] = [
       HiddenLayers,
       LearningRate,
       Optimizer,
@@ -105,6 +105,6 @@ def ResNet(HiddenLayers, LearningRate, Optimizer, NumFilters, Activation, Kernel
       history.history["acc"][i],
       history.history["val_loss"][i],
       history.history["val_acc"][i],
-    ])
+    ]
 
   return data
