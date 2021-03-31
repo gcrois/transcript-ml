@@ -30,6 +30,17 @@ optimizers = {
     "rmsprop": keras.optimizers.RMSprop()
 }
 
+PARAMETERS = {
+    "layers": set([2, 4, 8, 16, 32, 50]),
+    "rates": set([0.001, 0.01, 0.03, 0.05]),
+    "optimizer": set(["ADAM", "rmsprop"]),
+    "filters": set([16, 32, 64, 96]),
+    "activation": set(["RELU"]),
+    "kernel_size": set([3]),
+    "momentum": set([.9]),
+    "epochs": set([75]),
+}
+
 ROWS = 70
 COLS = 70
 CHANNELS = 3
@@ -37,3 +48,4 @@ CLASSES = 24
 LENGTH = 1000
 BLOCKS = 50
 EPOCHS = 75
+N_JOBS = 4

@@ -80,7 +80,5 @@ def ResNet(HiddenLayers, LearningRate, Optimizer, NumFilters, Activation, Kernel
       validation_data=(X_test, y_test), callbacks=CustomCallback())
 
 
-
-
 return
   
