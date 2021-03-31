@@ -71,11 +71,8 @@ def ResNet(HiddenLayers, LearningRate, Optimizer, NumFilters, Activation, Kernel
   print(f"{HiddenLayers} blocks done. Took:", round(time.time() - tic, 2), " seconds")
 
   ############### Train ###############################
-# learning_rate = LearningRate, momentum=Momenetum
   options = {opt: OPTMZ_ARGS[Optimizer][opt] for opt in OPTMZ_ARGS[Optimizer]}
   for o in options:
-    print("Momentum")
-    print(eval("Momentum"))
     options[o] = eval(options[o])
 
   res_net_model.compile(optimizer=eval(f"keras.optimizers.{Optimizer}")(**options),
