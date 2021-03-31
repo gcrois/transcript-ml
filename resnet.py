@@ -72,6 +72,8 @@ def ResNet(HiddenLayers, LearningRate, Optimizer, NumFilters, Activation, Kernel
 
   ############### Train ###############################
 # learning_rate = LearningRate, momentum=Momenetum
+  print(LearningRate)
+  print(eval("LearningRate"))
   res_net_model.compile(optimizer=eval(f"keras.optimizers.{Optimizer}")(**{opt: eval(OPTMZ_ARGS[Optimizer][opt]) for opt in OPTMZ_ARGS[Optimizer]}),
                 loss='sparse_categorical_crossentropy',
                 metrics=['acc'])
