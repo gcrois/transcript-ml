@@ -7,7 +7,7 @@
 
 
 from definitions import *
-from callback import *
+#from callback import *
 
 import os
 import numpy as np
@@ -80,8 +80,8 @@ def ResNet(HiddenLayers, LearningRate, Optimizer, NumFilters, Activation, Kernel
                 loss='sparse_categorical_crossentropy',
                 metrics=['acc'])
 
-  history = res_net_model.fit(x=X_train, y=y_train, batch_size=64, epochs=Epochs,
+  history = res_net_model.fit(x=X_train, y=y_train, batch_size=512, epochs=Epochs,
       validation_data=(X_test, y_test))
 
-  print(history.on_epoch_end(1), history.on_epoch_end(2))
+  print(history.history)
   
