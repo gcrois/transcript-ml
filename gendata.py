@@ -21,7 +21,6 @@ import pickle
 def read_image(file_path):
     #   Reads image in grayscale    #
     img = cv2.imread(file_path, cv2.IMREAD_COLOR)
-    img = img[..., np.newaxis]
     return img
 
 # For parsing through directory and loading array of images #
