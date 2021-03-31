@@ -87,13 +87,12 @@ def ResNet(HiddenLayers, LearningRate, Optimizer, NumFilters, Activation, Kernel
   data = pd.DataFrame(
     columns=["HiddenLayers", "LearningRate", "Optimizer",
             "NumFilters", "Activation", "KernelSize",
-            "Momentum", "Epochs", "Time",
-            "Loss", "Acc", "Val_Loss",
-            "Val_Acc",]
+            "Momentum", "Epochs", "Loss",
+            "Acc", "Val_Loss", "Val_Acc",]
   )
 
   for i in range(len(history.history["loss"])):
-    data.append([
+    data = data.append([
       HiddenLayers,
       LearningRate,
       Optimizer,
@@ -102,7 +101,6 @@ def ResNet(HiddenLayers, LearningRate, Optimizer, NumFilters, Activation, Kernel
       KernelSize,
       Momentum,
       i, # epochs
-      time.time() - tic,
       history.history["loss"][i],
       history.history["acc"][i],
       history.history["val_loss"][i],
