@@ -9,7 +9,7 @@ jobs = pickle.load( open( f"data/j{sys.argv[1]}.pickle", "rb" ) )
 data = pd.DataFrame(
     columns=["HiddenLayers", "LearningRate", "Optimizer",
             "NumFilters", "Activation", "KernelSize",
-            "Momenetum", "Epochs", "Time",
+            "Momentum", "Epochs", "Time",
             "Loss", "Acc", "Val_Loss",
             "Val_Acc",]
 )

@@ -32,7 +32,7 @@ PARAMETERS = {
     "NumFilters": set([16, 32, 64, 96]),
     "Activation": set(["relu"]),
     "KernelSize": set([3]),
-    "Momenetum": set([.9]),
+    "Momentum": set([.9]),
     "Epochs": set([75]),
 }
 
