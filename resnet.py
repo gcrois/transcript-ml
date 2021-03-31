@@ -71,8 +71,8 @@ def ResNet(HiddenLayers, LearningRate, Optimizer, NumFilters, Activation, Kernel
   print(f"{HiddenLayers} blocks done. Took:", round(time.time() - tic, 2), " seconds")
 
   ############### Train ###############################
-
-  res_net_model.compile(optimizer=eval(f"keras.optimizers.{Optimizer}")(learning_rate = LearningRate, momentum=Momenetum),
+# learning_rate = LearningRate, momentum=Momenetum
+  res_net_model.compile(optimizer=eval(f"keras.optimizers.{Optimizer}")(**{opt: eval(OPTMZ_ARGS[Optimizer][opt]) for opt in OPTMZ_ARGS[Optimizer]}),
                 loss='sparse_categorical_crossentropy',
                 metrics=['acc'])
 

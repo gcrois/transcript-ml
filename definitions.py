@@ -36,6 +36,16 @@ PARAMETERS = {
     "Epochs": set([75]),
 }
 
+OPTMZ_ARGS = {
+    "Adam": {
+        "learning_rate": "LearningRate"
+    },
+    "RMSprop": {
+        "learning_rate": "LearningRate",
+        "momentum": "Momentum"
+    }
+}
+
 ROWS = 70
 COLS = 70
 CHANNELS = 3
