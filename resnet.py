@@ -56,7 +56,7 @@ def ResNet(HiddenLayers, LearningRate, Optimizer, NumFilters, Activation, Kernel
   x = layers.MaxPooling2D(3)(x)
 
   #   Loop through making our blocks  #
-  for i in range(HiddenLayers / 2):
+  for i in range(HiddenLayers // 2):
       x = res_net_block(x, NumFilters, KernelSize, Activation)
 
   # Pool, dense layer and ddropout  #
