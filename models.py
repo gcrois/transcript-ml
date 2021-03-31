@@ -11,7 +11,7 @@ random.shuffle(jobs)
 
 for j in range(N_JOBS):
     for i in jobs[j]:
-        i["j_number"] = j
+        i["JobNum"] = j
 
 for j in range(N_JOBS):
     pickle.dump(jobs[j], open( f"data/j{j}.pickle", "wb" ))
