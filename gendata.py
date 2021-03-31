@@ -47,17 +47,6 @@ def prep_data(images):
         
     return data, y
 
-#   Defines our 'block' of resnet   #
-def res_net_block(input_data, filters, conv_size):
-  x = layers.Conv2D(filters, conv_size, activation='relu', padding='same')(input_data)
-  x = layers.BatchNormalization()(x)
-  x = layers.Conv2D(filters, conv_size, activation=None, padding='same')(x)
-  x = layers.BatchNormalization()(x)
-  x = layers.Add()([x, input_data])
-  x = layers.Activation('relu')(x)
-  return x
-
-
 ############### Run data processing ###############################
 myData = 'data/small/'
 xf = []

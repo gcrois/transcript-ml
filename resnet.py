@@ -25,6 +25,16 @@ from tensorflow.keras.callbacks import CSVLogger
 
 import pickle
 
+#   Defines our 'block' of resnet   #
+def res_net_block(input_data, filters, conv_size):
+  x = layers.Conv2D(filters, conv_size, activation='relu', padding='same')(input_data)
+  x = layers.BatchNormalization()(x)
+  x = layers.Conv2D(filters, conv_size, activation=None, padding='same')(x)
+  x = layers.BatchNormalization()(x)
+  x = layers.Add()([x, input_data])
+  x = layers.Activation('relu')(x)
+  return x
+
 X_train, X_test, y_train, y_test = pickle.load( open( "data/training_data.pickle", "rb" ) )
 
 ############### Begin making the model ###############################
