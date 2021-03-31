@@ -39,7 +39,9 @@ X_train, X_test, y_train, y_test = pickle.load( open( "data/training_data.pickle
 
 ############### Begin making the model ###############################
 
-print("Creating the 50 deep blocks")
+BLOCKS = 100
+
+print(f"Creating the {BLOCKS} deep blocks")
 tic = time.time()
 
 # Make the tensor with matching dimensions #
@@ -50,8 +52,7 @@ x = layers.Conv2D(64, 3, activation='relu')(x)
 x = layers.MaxPooling2D(3)(x)
 
 #   Loop through making our blocks  #
-num_res_net_blocks = 10
-for i in range(num_res_net_blocks):
+for i in range(BLOCKS):
     x = res_net_block(x, 64, 3)
 
 x = layers.Conv2D(64, 3, activation='relu')(x)
@@ -62,7 +63,7 @@ x = layers.Dropout(0.5)(x)
 outputs = layers.Dense(24, activation='softmax')(x)
 
 res_net_model = keras.Model(inputs, outputs)
-print("50 blocks done. Took:", round(time.time() - tic, 2), " seconds")
+print(f"{BLOCKS} blocks done. Took:", round(time.time() - tic, 2), " seconds")
 
 ############### Train ###############################
 
