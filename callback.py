@@ -6,7 +6,6 @@ class CustomCallback(keras.callbacks.Callback):
 
     def on_train_begin(self, logs=None):
         keys = list(logs.keys())
-        print(logs.keys())
 
         #print("Starting training; got log keys: {}".format(keys))
 
@@ -21,6 +20,7 @@ class CustomCallback(keras.callbacks.Callback):
 
     def on_epoch_end(self, epoch, logs=None):
         keys = list(logs.keys())
+        print(logs)
         #print("End epoch {} of training; got log keys: {}".format(epoch, keys))
 
         #l.append("Loss", "acc", "val_loss", "val_acc")
