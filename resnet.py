@@ -40,7 +40,7 @@ def res_net_block(input_data, filters, conv_size, Activation):
 
 
 def ResNet(HiddenLayers, LearningRate, Optimizer, NumFilters, Activation, KernelSize, Momentum, Epochs, BatchSize, JobNum):
-  Epochs = 3
+  Epochs = 1
 
   # Load in all of our data #
   X_train, X_test, y_train, y_test = pickle.load( open( "data/training_data.pickle", "rb" ) )
