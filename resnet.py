@@ -43,7 +43,7 @@ print("Creating the 50 deep blocks")
 tic = time.time()
 
 # Make the tensor with matching dimensions #
-inputs = keras.Input(shape=(70, 70, 1))
+inputs = keras.Input(shape=(70, 70, CHANNELS))
 
 x = layers.Conv2D(32, 3, activation='relu')(inputs)
 x = layers.Conv2D(64, 3, activation='relu')(x)
