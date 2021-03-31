@@ -39,6 +39,7 @@ def res_net_block(input_data, filters, conv_size, Activation):
 
 
 def ResNet(HiddenLayers, LearningRate, Optimizer, NumFilters, Activation, KernelSize, Momentum, Epochs, JobNum):
+  Epochs = 3
 
   # Load in all of our data #
   X_train, X_test, y_train, y_test = pickle.load( open( "data/training_data.pickle", "rb" ) )
@@ -80,5 +81,7 @@ def ResNet(HiddenLayers, LearningRate, Optimizer, NumFilters, Activation, Kernel
                 metrics=['acc'])
 
   history = res_net_model.fit(x=X_train, y=y_train, batch_size=64, epochs=Epochs,
-      validation_data=(X_test, y_test), callbacks=CustomCallback())
+      validation_data=(X_test, y_test))
+
+  print(history)
   
