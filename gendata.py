@@ -20,7 +20,7 @@ import pickle
 # Read in the image #
 def read_image(file_path):
     #   Reads image in grayscale    #
-    img = cv2.imread(file_path, cv2.IMREAD_GRAYSCALE)
+    img = cv2.imread(file_path, cv2.IMREAD_COLOR)
     img = img[..., np.newaxis]
     return img
 
@@ -53,6 +53,7 @@ xf = []
 yf = []
 
 print("starting data processing")
+tic = time.time()
 
 #   Loop through directories    #
 for x in os.listdir(myData):
