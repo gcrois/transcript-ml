@@ -30,7 +30,7 @@ PARAMETERS = {
     "LearningRate": set([0.001, 0.01, 0.03, 0.05]),
     "Optimizer": set(["Adam", "RMSprop"]),
     "NumFilters": set([16, 32, 64, 96]),
-    "Activation": set(["RELU"]),
+    "Activation": set(["relu"]),
     "KernelSize": set([3]),
     "Momenetum": set([.9]),
     "Epochs": set([75]),
