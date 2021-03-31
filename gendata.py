@@ -59,7 +59,7 @@ def res_net_block(input_data, filters, conv_size):
 
 
 ############### Run data processing ###############################
-myData = 'data/400k/sorted/'
+myData = 'data/small/'
 xf = []
 yf = []
 tic = time.time()
