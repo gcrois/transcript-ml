@@ -68,6 +68,10 @@ print("starting data processing")
 #   Loop through directories    #
 for x in os.listdir(myData):
     tmp = myData + x
+
+    if os.path.isfile(tmp):
+        continue
+
     x, y = prep_data(tmp)
     xf.append(x)
     yf.append(y)
