@@ -14,7 +14,7 @@ data = pd.DataFrame(
             "Val_Acc",]
 )
 
-for j in jobs:
+for j in jobs[:2]:
     print("Starting job\n", j)
     data = data.append(resnet.ResNet(**j))
     print("Done with job\n")
