@@ -74,6 +74,8 @@ def ResNet(HiddenLayers, LearningRate, Optimizer, NumFilters, Activation, Kernel
 # learning_rate = LearningRate, momentum=Momenetum
   options = {opt: OPTMZ_ARGS[Optimizer][opt] for opt in OPTMZ_ARGS[Optimizer]}
   for o in options:
+    print("Momentum")
+    print(eval("Momentum"))
     options[o] = eval(options[o])
 
   res_net_model.compile(optimizer=eval(f"keras.optimizers.{Optimizer}")(**options),
