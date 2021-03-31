@@ -34,6 +34,7 @@ PARAMETERS = {
     "KernelSize": set([3]),
     "Momentum": set([.9]),
     "Epochs": set([75]),
+    "BatchSize": set([512])
 }
 
 OPTMZ_ARGS = {

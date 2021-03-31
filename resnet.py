@@ -38,7 +38,7 @@ def res_net_block(input_data, filters, conv_size, Activation):
   return x
 
 
-def ResNet(HiddenLayers, LearningRate, Optimizer, NumFilters, Activation, KernelSize, Momentum, Epochs, JobNum):
+def ResNet(HiddenLayers, LearningRate, Optimizer, NumFilters, Activation, KernelSize, Momentum, Epochs, BatchSize, JobNum):
   Epochs = 3
 
   # Load in all of our data #
@@ -80,8 +80,32 @@ def ResNet(HiddenLayers, LearningRate, Optimizer, NumFilters, Activation, Kernel
                 loss='sparse_categorical_crossentropy',
                 metrics=['acc'])
 
-  history = res_net_model.fit(x=X_train, y=y_train, batch_size=512, epochs=Epochs,
+  history = res_net_model.fit(x=X_train, y=y_train, batch_size=BatchSize, epochs=Epochs,
       validation_data=(X_test, y_test))
 
-  print(history.history)
-  
+  data = pd.DataFrame(
+    columns=["HiddenLayers", "LearningRate", "Optimizer",
+            "NumFilters", "Activation", "KernelSize",
+            "Momentum", "Epochs", "Time",
+            "Loss", "Acc", "Val_Loss",
+            "Val_Acc",]
+  )
+
+  for i in range(len(history.history["loss"])):
+    data.append([
+      HiddenLayers,
+      LearningRate,
+      Optimizer,
+      NumFilters,
+      Activation,
+      KernelSize,
+      Momentum,
+      i, # epochs
+      time.time() - tic,
+      history.history["loss"][i],
+      history.history["acc"][i],
+      history.history["val_loss"][i],
+      history.history["val_acc"][i],
+    ])
+
+  return data
