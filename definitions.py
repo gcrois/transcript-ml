@@ -25,15 +25,10 @@ classification = {
     "Zeta" : 23
 }
 
-optimizers = {
-    "ADAM": keras.optimizers.Adam(),
-    "rmsprop": keras.optimizers.RMSprop()
-}
-
 PARAMETERS = {
     "layers": set([2, 4, 8, 16, 32, 50]),
     "rates": set([0.001, 0.01, 0.03, 0.05]),
-    "optimizer": set(["ADAM", "rmsprop"]),
+    "optimizer": set(["Adam", "RMSprop"]),
     "filters": set([16, 32, 64, 96]),
     "activation": set(["RELU"]),
     "kernel_size": set([3]),
