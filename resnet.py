@@ -40,6 +40,7 @@ X_train, X_test, y_train, y_test = pickle.load( open( "data/training_data.pickle
 ############### Begin making the model ###############################
 
 print("Creating the 50 deep blocks")
+tic = time.time()
 
 # Make the tensor with matching dimensions #
 inputs = keras.Input(shape=(70, 70, 1))

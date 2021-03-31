@@ -51,7 +51,7 @@ def prep_data(images):
 myData = 'data/small/'
 xf = []
 yf = []
-tic = time.time()
+
 print("starting data processing")
 
 #   Loop through directories    #
