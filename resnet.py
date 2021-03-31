@@ -78,7 +78,4 @@ def ResNet(HiddenLayers, LearningRate, Optimizer, NumFilters, Activation, Kernel
 
   history = res_net_model.fit(x=X_train, y=y_train, batch_size=64, epochs=Epochs,
       validation_data=(X_test, y_test), callbacks=CustomCallback())
-
-
-return
   
