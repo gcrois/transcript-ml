@@ -11,7 +11,7 @@ random.shuffle(jobs)
 
 for j in range(N_JOBS):
     for i in jobs[j]:
-        i["j_number"] = j
+        i["JobNum"] = j
 
 print(jobs[0][0], jobs[1][0], jobs[2][0], jobs[3][0])
 

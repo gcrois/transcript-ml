@@ -19,4 +19,4 @@ for j in jobs:
     data = data.append(resnet.ResNet(**j))
     print("Done with job\n")
 
-data.to_csv(f"data/{jobs[0]['j_number']}_results.csv")
+data.to_csv(f"data/{jobs[0]['JobNum']}_results.csv")
