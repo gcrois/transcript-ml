@@ -1,3 +1,5 @@
+from tensorflow import keras
+
 class CustomCallback(keras.callbacks.Callback):
 
     l = []
