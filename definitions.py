@@ -25,6 +25,11 @@ classification = {
     "Zeta" : 23
 }
 
+optimizers = {
+    "ADAM": keras.optimizers.Adam(),
+    "rmsprop": keras.optimizers.RMSprop()
+}
+
 ROWS = 70
 COLS = 70
 CHANNELS = 3

@@ -7,6 +7,7 @@
 
 
 from definitions import *
+from callback import *
 
 import os
 import numpy as np
@@ -26,53 +27,60 @@ from tensorflow.keras.callbacks import CSVLogger
 import pickle
 
 #   Defines our 'block' of resnet   #
-def res_net_block(input_data, filters, conv_size):
-  x = layers.Conv2D(filters, conv_size, activation='relu', padding='same')(input_data)
+#   Creates 2 blocks of resNet      #
+def res_net_block(input_data, filters, conv_size, Activation):
+  x = layers.Conv2D(filters, conv_size, activation=Activation, padding='same')(input_data)
   x = layers.BatchNormalization()(x)
-  x = layers.Conv2D(filters, conv_size, activation=None, padding='same')(x)
+  x = layers.Conv2D(filters, conv_size, activation=Activation, padding='same')(x)
   x = layers.BatchNormalization()(x)
   x = layers.Add()([x, input_data])
-  x = layers.Activation('relu')(x)
+  x = layers.Activation(Activation)(x)
   return x
 
-X_train, X_test, y_train, y_test = pickle.load( open( "data/training_data.pickle", "rb" ) )
 
-############### Begin making the model ###############################
+def ResNet(HiddenLayers, LearningRate, Optimizer, NumFilters, Activation, KernelSize, Momenetum, Epochs):
 
-print(f"Creating the {BLOCKS} deep blocks")
-tic = time.time()
+  # Load in all of our data #
+  X_train, X_test, y_train, y_test = pickle.load( open( "data/training_data.pickle", "rb" ) )
 
-# Make the tensor with matching dimensions #
-inputs = keras.Input(shape=(70, 70, CHANNELS))
+  ############### Begin making the model ###############################
 
-x = layers.Conv2D(32, 3, activation='relu')(inputs)
-x = layers.Conv2D(64, 3, activation='relu')(x)
-x = layers.MaxPooling2D(3)(x)
+  print(f"Creating the {HiddenLayers} deep blocks")
+  tic = time.time()
 
-#   Loop through making our blocks  #
-for i in range(BLOCKS):
-    x = res_net_block(x, 64, 3)
+  # Make the tensor with matching dimensions #
+  inputs = keras.Input(shape=(70, 70, CHANNELS))
 
-x = layers.Conv2D(64, 3, activation='relu')(x)
-x = layers.GlobalAveragePooling2D()(x)
-x = layers.Dense(256, activation='relu')(x)
-x = layers.Dropout(0.5)(x)
+  x = layers.Conv2D(NumFilters, KernelSize, activation=Activation)(inputs)
+  x = layers.Conv2D(NumFilters, KernelSize, activation=Activation)(x)
+  x = layers.MaxPooling2D(3)(x)
 
-outputs = layers.Dense(24, activation='softmax')(x)
+  #   Loop through making our blocks  #
+  for i in range(HiddenLayers / 2):
+      x = res_net_block(x, NumFilters, KernelSize, Activation)
 
-res_net_model = keras.Model(inputs, outputs)
-print(f"{BLOCKS} blocks done. Took:", round(time.time() - tic, 2), " seconds")
+  # Pool, dense layer and ddropout  #
+  x = layers.GlobalAveragePooling2D()(x)
+  x = layers.Dense(256, activation= Activation)(x)
+  x = layers.Dropout(0.5)(x)
 
-############### Train ###############################
+  # Was originally softmax, might be for a good reason and should stay that way #
+  outputs = layers.Dense(24, activation=Activation)(x)
 
-callbacks = [
-  # Write TensorBoard logs to `./logs` directory
-  keras.callbacks.TensorBoard(log_dir='./log/{}'.format(dt.datetime.now().strftime("%Y-%m-%d-%H-%M-%S")), write_images=True),
- CSVLogger("model_history_log.csv", append=False)
-]
-res_net_model.compile(optimizer=keras.optimizers.Adam(),
-              loss='sparse_categorical_crossentropy',
-              metrics=['acc'])
+  res_net_model = keras.Model(inputs, outputs)
+  print(f"{HiddenLayers} blocks done. Took:", round(time.time() - tic, 2), " seconds")
 
-history = res_net_model.fit(x=X_train, y=y_train, batch_size=138, epochs=EPOCHS,
-	  validation_data=(X_test, y_test), callbacks=callbacks)
+  ############### Train ###############################
+
+  res_net_model.compile(optimizer=optimizers[Optimizer](learning_rate = LearningRate, momentum=Momenetum),
+                loss='sparse_categorical_crossentropy',
+                metrics=['acc'])
+
+  history = res_net_model.fit(x=X_train, y=y_train, batch_size=64, epochs=Epochs,
+      validation_data=(X_test, y_test), callbacks=CustomCallback())
+
+
+
+
+return
+  
