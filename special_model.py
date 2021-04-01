@@ -1,3 +1,5 @@
+import pickle
+
 j = {
     "HiddenLayers": 100,
     "LearningRate": 0.05,
@@ -10,4 +12,4 @@ j = {
     "BatchSize": 64,
 }
 
-pickle.dump(j, open( f"data/jS.pickle", "wb" ))
+pickle.dump(j, open( "data/jS.pickle", "wb" ))
