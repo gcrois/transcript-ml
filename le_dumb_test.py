@@ -74,7 +74,7 @@ callbacks = [
 res_net_model.compile(optimizer=keras.optimizers.Adam(),
               loss='sparse_categorical_crossentropy',
               metrics=['acc'])
-history = res_net_model.fit(x=X_train, y=y_train, batch_size=138, epochs=10,
+history = res_net_model.fit(x=X_train, y=y_train, batch_size=138, epochs=75,
 	  validation_data=(X_test, y_test), callbacks=callbacks)
 
 data = pd.DataFrame(
