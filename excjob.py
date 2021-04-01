@@ -1,6 +1,7 @@
 import sys
 import resnet
 import pandas as pd
+import tensorflow as tf
 import pickle
 
 
