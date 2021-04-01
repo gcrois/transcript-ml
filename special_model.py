@@ -2,11 +2,11 @@ import pickle
 
 j = {
     "HiddenLayers": 100,
-    "LearningRate": 0.05,
-    "Optimizer": "RMSprop",
-    "NumFilters": 96,
+    "LearningRate": 0.001,
+    "Optimizer": "Adam",
+    "NumFilters": 64,
     "Activation": "relu",
-    "KernelSize": 5,
+    "KernelSize": 3,
     "Momentum": .9,
     "Epochs": 10,
     "BatchSize": 64,
