@@ -10,6 +10,7 @@ j = {
     "Momentum": .9,
     "Epochs": 10,
     "BatchSize": 64,
+    "JobNum": "S",
 }
 
 pickle.dump([j], open( "data/jS.pickle", "wb" ))
