@@ -43,7 +43,7 @@ X_train, X_test, y_train, y_test = pickle.load( open( "data/training_data.pickle
 print("Creating the 50 deep blocks")
 
 # Make the tensor with matching dimensions #
-inputs = keras.Input(shape=(70, 70, 1))
+inputs = keras.Input(shape=(70, 70, 3))
 
 x = layers.Conv2D(32, 3, activation='relu')(inputs)
 x = layers.Conv2D(64, 3, activation='relu')(x)
