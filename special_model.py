@@ -12,4 +12,4 @@ j = {
     "BatchSize": 64,
 }
 
-pickle.dump(j, open( "data/jS.pickle", "wb" ))
+pickle.dump([j], open( "data/jS.pickle", "wb" ))
