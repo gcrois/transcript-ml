@@ -13,9 +13,10 @@ data = pd.DataFrame(
             "Acc", "Val_Loss", "Val_Acc",]
 )
 
-for j in jobs[:2]:
-    print("Starting job\n", j)
-    data = data.append(resnet.ResNet(**j))
-    print("Done with job\n")
+with tf.device(f'/GPU:{sys.argv[2]}'):
+    for j in range(len(jobs)):
+        print("Starting job #{j}\n", j)
+        data = data.append(resnet.ResNet(**jobs[j]))
+        print("Done with job # {j}\n")
 
 data.to_csv(f"data/{jobs[0]['JobNum']}_results.csv")
