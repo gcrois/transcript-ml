@@ -81,7 +81,7 @@ def ResNet(HiddenLayers, LearningRate, Optimizer, NumFilters, Activation, Kernel
                 metrics=['acc'])
 
   history = res_net_model.fit(x=X_train, y=y_train, batch_size=BatchSize, epochs=Epochs,
-      validation_data=(X_test, y_test), callbacks=CustomCallback())
+      validation_data=(X_test, y_test), callbacks=CustomCallback(), verbose=0)
 
   data = pd.DataFrame(
     columns=["HiddenLayers", "LearningRate", "Optimizer",

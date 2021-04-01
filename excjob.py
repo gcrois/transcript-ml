@@ -20,8 +20,7 @@ with tf.device(f'/GPU:{sys.argv[2]}'):
             print(f"Starting job #{j}\n")
             data = data.append(resnet.ResNet(**jobs[j]))
             print(f"Done with job # {j}\n")
-    except e:
-        print(e)
+    except:
         print("interrupted! trying to save data")
         data.to_csv(f"data/{jobs[0]['JobNum']}_results.csv")
         sys.exit(0)
