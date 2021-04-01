@@ -62,7 +62,7 @@ x = layers.Dropout(0.5)(x)
 outputs = layers.Dense(24, activation='softmax')(x)
 
 res_net_model = keras.Model(inputs, outputs)
-print("50 blocks done. Took:", round(time.time() - tic, 2), " seconds")
+print("50 blocks done. Took:", round(time.time(), 2), " seconds")
 
 ############### Train ###############################
 
