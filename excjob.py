@@ -5,7 +5,10 @@ import tensorflow as tf
 import pickle
 
 
-jobs = pickle.load( open( f"data/j{sys.argv[1]}.pickle", "rb" ) )
+job_n = sys.argv[1]
+gpu_n = sys.argv[2]
+
+jobs = pickle.load( open( f"data/j{job_n}.pickle", "rb" ) )
 
 data = pd.DataFrame(
     columns=["HiddenLayers", "LearningRate", "Optimizer",
@@ -14,10 +17,10 @@ data = pd.DataFrame(
             "Acc", "Val_Loss", "Val_Acc",]
 )
 
-filename = f"data/{jobs[0]['JobNum']}_results.csv"
+filename = f"data/{job_n}_results.csv"
 data.to_csv(filename, mode='a', header=True)
 
-with tf.device(f'/GPU:{sys.argv[2]}'):
+with tf.device(f'/GPU:{gpu_n}'):
     try:
         for j in range(len(jobs)):
             print(f"Starting job #{j}\n")
