@@ -18,7 +18,7 @@ data = pd.DataFrame(
 )
 
 filename = f"data/{job_n}_results.csv"
-data.to_csv(filename, mode='a', header=True)
+data.to_csv(filename, header=True)
 
 with tf.device(f'/GPU:{gpu_n}'):
     try:
