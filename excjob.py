@@ -15,13 +15,13 @@ data = pd.DataFrame(
 )
 
 filename = f"data/{jobs[0]['JobNum']}_results.csv"
-data.to_csv('my_csv.csv', mode='a', header=True)
+data.to_csv(filename, mode='a', header=True)
 
 with tf.device(f'/GPU:{sys.argv[2]}'):
     try:
         for j in range(len(jobs)):
             print(f"Starting job #{j}\n")
-            resnet.ResNet(**jobs[j]).to_csv('my_csv.csv', mode='a', header=False)
+            resnet.ResNet(**jobs[j]).to_csv(filename, mode='a', header=False)
             print(f"Done with job # {j}\n")
     except:
         print("interrupted! trying to save data")
