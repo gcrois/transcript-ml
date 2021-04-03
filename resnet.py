@@ -98,7 +98,7 @@ def ResNet(HiddenLayers, LearningRate, Optimizer, NumFilters, Activation, Kernel
       Activation,
       KernelSize,
       Momentum,
-      i, # epochs
+      i + 1, # epochs
       history.history["loss"][i],
       history.history["acc"][i],
       history.history["val_loss"][i],
