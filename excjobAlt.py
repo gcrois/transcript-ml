@@ -17,7 +17,7 @@ data = pd.DataFrame(
 
 filename = "data_results_Alt.csv"
 data.to_csv(filename, header=True)
-with tf.device(f'/GPU:{0}'):
+with tf.device('GPU:0'):
     resnetAlt.ResNetAlt(10).to_csv(filename, mode='a', header=False)
 
 print(f"Starting job")
