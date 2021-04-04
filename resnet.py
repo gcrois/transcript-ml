@@ -79,6 +79,7 @@ def ResNet(HiddenLayers, LearningRate, Optimizer, NumFilters, Activation, Kernel
                 loss='sparse_categorical_crossentropy',
                 metrics=['acc'])
 
+  print(locals())
   history = res_net_model.fit(x=X_train, y=y_train, batch_size=BatchSize, epochs=Epochs,
       validation_data=(X_test, y_test), verbose=1)
 
