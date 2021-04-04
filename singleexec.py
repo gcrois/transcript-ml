@@ -22,11 +22,12 @@ data.to_csv(filename, header=True)
 
 print(f"Starting job #{job_n} on gpu #{gpu_n}")
 
-try:
-    for j in range(len(jobs)):
-        print(f"Starting job #{j}\n")
-        resnet.ResNet(**jobs[j]).to_csv(filename, mode='a', header=False)
-        print(f"Done with job # {j}\n")
-except:
-    print("interrupted! trying to save data")
-    sys.exit(0)
+with tf.device(f'/GPU:{gpu_n}'):
+    try:
+        for j in range(len(jobs)):
+            print(f"Starting job #{j}\n")
+            resnet.ResNet(**jobs[j]).to_csv(filename, mode='a', header=False)
+            print(f"Done with job # {j}\n")
+    except:
+        print("interrupted! trying to save data")
+        sys.exit(0)
