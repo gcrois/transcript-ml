@@ -8,24 +8,10 @@
 
 
 from definitions import *
-from callback import *
-
-import os
-import numpy as np
-import cv2
-from PIL import Image
-import sklearn
-from sklearn.model_selection import train_test_split
-from sklearn.utils import shuffle
 from tensorflow import keras
 from tensorflow.keras import layers
-import tensorflow as tf
-import datetime as dt
-import itertools
 import time
-from tensorflow.keras.callbacks import CSVLogger
 import pandas as pd
-
 import pickle
 
 #   Defines our 'block' of resnet   #
