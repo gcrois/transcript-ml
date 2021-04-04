@@ -20,6 +20,8 @@ data = pd.DataFrame(
 filename = f"data/{job_n}_results.csv"
 data.to_csv(filename, header=True)
 
+print(f"Starting job #{job_n} on gpu #{gpu_n}")
+
 with tf.device(f'/GPU:{gpu_n}'):
     try:
         for j in range(len(jobs)):
