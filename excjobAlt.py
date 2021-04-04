@@ -20,6 +20,6 @@ data.to_csv(filename, header=True)
 with tf.device('GPU:0'):
     resnetAlt.ResNetAlt(10).to_csv(filename, mode='a', header=False)
 
-print(f"Starting job")
+print("Starting job")
 
 #with tf.device(f'/GPU:{gpu_n}'):
