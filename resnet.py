@@ -24,6 +24,7 @@ import itertools
 import time
 from tensorflow.keras.callbacks import CSVLogger
 import pandas as pd
+from sklearn.model_selection import cross_val_score
 
 import pickle
 
@@ -41,7 +42,7 @@ def res_net_block(input_data, filters, conv_size, Activation):
 
 def ResNet(HiddenLayers, LearningRate, Optimizer, NumFilters, Activation, KernelSize, Momentum, Epochs, BatchSize, JobNum):
   # Load in all of our data #
-  X_train, X_test, y_train, y_test = pickle.load( open( "data/training_data.pickle", "rb" ) )
+  X, Y = pickle.load( open( "data/400k_training_data.pickle", "rb" ) )
 
   ############### Begin making the model ###############################
 
@@ -80,9 +81,10 @@ def ResNet(HiddenLayers, LearningRate, Optimizer, NumFilters, Activation, Kernel
                 metrics=['acc'])
 
   print(locals())
-  history = res_net_model.fit(x=X_train, y=y_train, batch_size=BatchSize, epochs=Epochs,
-      validation_data=(X_test, y_test), verbose=1)
 
+  scores = cross_val_score(res_net_model, X, Y, cv=10, scoring='accuracy')
+  print(scores)
+"""
   data = pd.DataFrame(
     columns=["HiddenLayers", "LearningRate", "Optimizer",
             "NumFilters", "Activation", "KernelSize",
@@ -105,5 +107,5 @@ def ResNet(HiddenLayers, LearningRate, Optimizer, NumFilters, Activation, Kernel
       history.history["val_loss"][i],
       history.history["val_acc"][i],
     ]
-
-  return data
+"""
+#  return scores
