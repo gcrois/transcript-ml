@@ -93,9 +93,11 @@ def ResNet(HiddenLayers, LearningRate, Optimizer, NumFilters, Activation, Kernel
 
     print("Iteration ", spot, ": ")
     print('Model evaluation ', res_net_model.evaluate(X[valid],Y[valid]))
+    with open('validData.csv', 'a') as fd:
+      fd.write(history.history)
     spot += 1
 
 
   return None
 
-ResNet(HiddenLayers=32, LearningRate=.001, Optimizer="RMSprop", NumFilters=96, Activation="relu", KernelSize=3, Momentum=.9, Epochs=50, BatchSize=512, JobNum=1)
+ResNet(HiddenLayers=32, LearningRate=.001, Optimizer="RMSprop", NumFilters=96, Activation="relu", KernelSize=3, Momentum=.9, Epochs=1, BatchSize=512, JobNum=1)
