@@ -24,7 +24,7 @@ import itertools
 import time
 from tensorflow.keras.callbacks import CSVLogger
 from sklearn.model_selection import cross_val_score
-from sklearn.model_selection import KFold
+from sklearn.model_selection import StratifiedKFold
 
 import pandas as pd
 
@@ -79,7 +79,7 @@ def ResNet(HiddenLayers, LearningRate, Optimizer, NumFilters, Activation, Kernel
     options[o] = eval(options[o])
 
   # Define the K-fold Cross Validator
-  kfold = KFold(n_splits=10, shuffle=True)
+  kfold = StratifiedKFold(n_splits=10, shuffle=True)
 
   print("Running K Cross")
 
@@ -89,10 +89,10 @@ def ResNet(HiddenLayers, LearningRate, Optimizer, NumFilters, Activation, Kernel
                           loss='sparse_categorical_crossentropy',
                           metrics=['acc'])
 
-    history = res_net_model.fit(x=X[train], y=Y[valid],  batch_size=BatchSize, verbose=1)
+    history = res_net_model.fit(x=X[train], y=Y[train],  batch_size=BatchSize, verbose=1)
 
     print("Iteration ", spot, ": ")
-    print(history.history)
+    print('Model evaluation ', res_net_model.evaluate(X[valid],Y[valid]))
     spot += 1
 
 
