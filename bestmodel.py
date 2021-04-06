@@ -25,6 +25,7 @@ import time
 from tensorflow.keras.callbacks import CSVLogger
 from sklearn.model_selection import cross_val_score
 from sklearn.model_selection import StratifiedKFold
+import csv
 
 import pandas as pd
 
@@ -93,8 +94,9 @@ def ResNet(HiddenLayers, LearningRate, Optimizer, NumFilters, Activation, Kernel
 
     print("Iteration ", spot, ": ")
     print('Model evaluation ', res_net_model.evaluate(X[valid],Y[valid]))
-    with open('validData.csv', 'a') as fd:
-      fd.write(history.history)
+    with open('validData.csv', 'w') as csvfile:
+      csvwriter = csv.writer(csvfile)
+      csvwriter.writerow(res_net_model.evaluate(X[valid], Y[valid]))
     spot += 1
 
 
