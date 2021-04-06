@@ -24,6 +24,7 @@ import itertools
 import time
 from tensorflow.keras.callbacks import CSVLogger
 from sklearn.model_selection import cross_val_score
+from sklearn.model_selection import KFold
 
 import pandas as pd
 
@@ -77,26 +78,24 @@ def ResNet(HiddenLayers, LearningRate, Optimizer, NumFilters, Activation, Kernel
   for o in options:
     options[o] = eval(options[o])
 
-  res_net_model.compile(optimizer=eval(f"keras.optimizers.{Optimizer}")(**options),
-                loss='sparse_categorical_crossentropy',
-                metrics=['acc'])
+  # Define the K-fold Cross Validator
+  kfold = KFold(n_splits=10, shuffle=True)
 
-  print(locals())
-  score = cross_val_score(res_net_model, X, Y, cv=10, scoring='accuracy')
+  print("Running K Cross")
+
+  spot = 0
+  for train, valid in kfold.split(X, Y):
+    res_net_model.compile(optimizer=eval(f"keras.optimizers.{Optimizer}")(**options),
+                          loss='sparse_categorical_crossentropy',
+                          metrics=['acc'])
+
+    history = res_net_model.fit(x=X[train], y=Y[valid],  batch_size=BatchSize, verbose=1)
+
+    print("Iteration ", spot, ": ")
+    print(history.history)
+    spot += 1
 
 
-  data = pd.DataFrame(
-    columns=["Accuracy"]
-  )
-
-  for i in range(score):
-    data.loc[len(data)] = [
-      score[i]
-    ]
-
-  res_net_model.save("bestmodel")
-  print(score)
-
-  return data
+  return None
 
 ResNet(HiddenLayers=32, LearningRate=.001, Optimizer="RMSprop", NumFilters=96, Activation="relu", KernelSize=3, Momentum=.9, Epochs=50, BatchSize=512, JobNum=1)
