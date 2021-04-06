@@ -81,7 +81,6 @@ def ResNet(HiddenLayers, LearningRate, Optimizer, NumFilters, Activation, Kernel
                 metrics=['acc'])
 
   print(locals())
-
   scores = cross_val_score(res_net_model, X, Y, cv=10, scoring='accuracy')
   print(scores)
 """
