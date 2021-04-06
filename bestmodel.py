@@ -89,7 +89,7 @@ def ResNet(HiddenLayers, LearningRate, Optimizer, NumFilters, Activation, Kernel
                           loss='sparse_categorical_crossentropy',
                           metrics=['acc'])
 
-    history = res_net_model.fit(x=X[train], y=Y[train],  batch_size=BatchSize, verbose=1)
+    history = res_net_model.fit(x=X[train], y=Y[train],  batch_size=BatchSize, verbose=1, epochs=Epochs )
 
     print("Iteration ", spot, ": ")
     print('Model evaluation ', res_net_model.evaluate(X[valid],Y[valid]))
