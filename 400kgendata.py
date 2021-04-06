@@ -35,14 +35,14 @@ def prep_data(images):
         #        if(i == LENGTH):
         #            break
         data[i, :] = read_image(images + '/' + filename)
-        y[i, 0] = classification[images.split("/")[4]]
+        y[i, 0] = classification[images.split("/")[-1]]
         i += 1
 
     return data, y
 
 
 ############### Run data processing ###############################
-myData = '../../400k/sorted/'
+myData = 'data/400k/sorted/'
 xf = []
 yf = []
 
@@ -70,4 +70,4 @@ X, Y = shuffle(combinedX, yl)
 X = np.array(X)
 Y = np.array(Y)
 
-pickle.dump((X, Y), open("data/400k_training_data.pickle", "wb"))
+pickle.dump((X, Y), open("data/400k_training_data.pickle", "wb"), protocol=4)
