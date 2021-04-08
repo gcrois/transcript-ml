@@ -27,7 +27,6 @@ def ResNetModel(HiddenLayers, LearningRate, Optimizer, NumFilters, Activation, K
   # Load in all of our data #
 
   ############### Begin making the model ###############################
-  print(f"Creating the {HiddenLayers} deep blocks")
   tic = time.time()
 
   # Make the tensor with matching dimensions #
