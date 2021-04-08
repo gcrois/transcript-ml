@@ -49,7 +49,6 @@ def ResNetModel(HiddenLayers, LearningRate, Optimizer, NumFilters, Activation, K
   outputs = layers.Dense(24, activation="softmax")(x)
 
   res_net_model = keras.Model(inputs, outputs)
-  print(f"{HiddenLayers} blocks done. Took:", round(time.time() - tic, 2), " seconds")
 
   ############### Train ###############################
   options = {opt: OPTMZ_ARGS[Optimizer][opt] for opt in OPTMZ_ARGS[Optimizer]}
