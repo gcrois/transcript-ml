@@ -8,6 +8,7 @@
 
 from definitions import *
 from callback import *
+from ModelCreation import *
 
 import os
 import numpy as np
@@ -31,75 +32,48 @@ import pandas as pd
 
 import pickle
 
-#   Defines our 'block' of resnet   #
-#   Creates 2 blocks of resNet      #
-def res_net_block(input_data, filters, conv_size, Activation):
-  x = layers.Conv2D(filters, conv_size, activation=Activation, padding='same')(input_data)
-  x = layers.BatchNormalization()(x)
-  x = layers.Conv2D(filters, conv_size, activation=Activation, padding='same')(x)
-  x = layers.BatchNormalization()(x)
-  x = layers.Add()([x, input_data])
-  x = layers.Activation(Activation)(x)
-  return x
-
-
 def ResNet(HiddenLayers, LearningRate, Optimizer, NumFilters, Activation, KernelSize, Momentum, Epochs, BatchSize, JobNum):
-  # Load in all of our data #
-  X, Y = pickle.load( open( "data/400k_training_data.pickle", "rb" ) )
 
-  ############### Begin making the model ###############################
+  X, Y = pickle.load( open( "data/400k_training_data.pickle", "rb"))
 
-  print(f"Creating the {HiddenLayers} deep blocks")
-  tic = time.time()
+  X = X[:10000]
+  Y = Y[:10000]
 
-  # Make the tensor with matching dimensions #
-  inputs = keras.Input(shape=(70, 70, CHANNELS))
+  X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size = 0.1, random_state = 1)
 
-  x = layers.Conv2D(NumFilters, KernelSize, activation=Activation)(inputs)
-  x = layers.Conv2D(NumFilters, KernelSize, activation=Activation)(x)
-  x = layers.MaxPooling2D(3)(x)
+  res_net_model = ResNetModel(HiddenLayers, LearningRate, Optimizer, NumFilters, Activation, KernelSize, Momentum, Epochs, BatchSize, JobNum)
 
-  #   Loop through making our blocks  #
-  for i in range(HiddenLayers // 2):
-      x = res_net_block(x, NumFilters, KernelSize, Activation)
 
-  # Pool, dense layer and ddropout  #
-  x = layers.GlobalAveragePooling2D()(x)
-  x = layers.Dense(256, activation= Activation)(x)
-  x = layers.Dropout(0.5)(x)
+  checkpoint_path = "training_1/cp.ckpt"
+  checkpoint_dir = os.path.dirname(checkpoint_path)
 
-  # Was originally softmax, might be for a good reason and should stay that way #
-  outputs = layers.Dense(24, activation="softmax")(x)
+  # Create a callback that saves the model's weights
+  cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path,
+                                                   save_weights_only=True,
+                                                   verbose=1)
 
-  res_net_model = keras.Model(inputs, outputs)
-  print(f"{HiddenLayers} blocks done. Took:", round(time.time() - tic, 2), " seconds")
+  history = res_net_model.fit(x=X_train, y=y_train, batch_size=BatchSize, verbose=1, epochs=Epochs, callbacks=cp_callback)
+  res_net_model.evaluate(X_test, y_test)
 
-  ############### Train ###############################
-  options = {opt: OPTMZ_ARGS[Optimizer][opt] for opt in OPTMZ_ARGS[Optimizer]}
-  for o in options:
-    options[o] = eval(options[o])
 
-  # Define the K-fold Cross Validator
-  kfold = StratifiedKFold(n_splits=10, shuffle=True)
 
   print("Running K Cross")
 
-  spot = 0
+  """
   for train, valid in kfold.split(X, Y):
-    res_net_model.compile(optimizer=eval(f"keras.optimizers.{Optimizer}")(**options),
-                          loss='sparse_categorical_crossentropy',
-                          metrics=['acc'])
 
-    history = res_net_model.fit(x=X[train], y=Y[train],  batch_size=BatchSize, verbose=1, epochs=Epochs )
+
+    
 
     print("Iteration ", spot, ": ")
     print('Model evaluation ', res_net_model.evaluate(X[valid],Y[valid]))
-    with open('validData.csv', 'w') as csvfile:
+    with open('validData.csv', 'a') as csvfile:
       csvwriter = csv.writer(csvfile)
       csvwriter.writerow(res_net_model.evaluate(X[valid], Y[valid]))
     spot += 1
 
+  """
+  return res_net_model
 
-  return None
 
-ResNet(HiddenLayers=32, LearningRate=.001, Optimizer="RMSprop", NumFilters=96, Activation="relu", KernelSize=3, Momentum=.9, Epochs=50, BatchSize=512, JobNum=1)
+ResNet(HiddenLayers=32, LearningRate=.001, Optimizer="RMSprop", NumFilters=96, Activation="relu", KernelSize=3, Momentum=.9, Epochs=10, BatchSize=512, JobNum=1)
