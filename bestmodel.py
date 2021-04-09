@@ -49,7 +49,7 @@ def ResNet(HiddenLayers, LearningRate, Optimizer, NumFilters, Activation, Kernel
                                                    save_weights_only=True,
                                                    verbose=1)
 
-  history = res_net_model.fit(x=X_train, y=y_train, batch_size=BatchSize, verbose=1, epochs=Epochs, callbacks=cp_callback)
+  history = res_net_model.fit(x=X_train, y=y_train, batch_size=BatchSize, verbose=1, epochs=Epochs, callbacks=[cp_callback])
   res_net_model.evaluate(X_test, y_test)
 
 
