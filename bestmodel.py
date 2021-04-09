@@ -36,9 +36,6 @@ def ResNet(HiddenLayers, LearningRate, Optimizer, NumFilters, Activation, Kernel
 
   X, Y = pickle.load( open( "data/400k_training_data.pickle", "rb"))
 
-  X = X[:10000]
-  Y = Y[:10000]
-
   X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size = 0.1, random_state = 1)
 
   res_net_model = ResNetModel(HiddenLayers, LearningRate, Optimizer, NumFilters, Activation, KernelSize, Momentum, Epochs, BatchSize, JobNum)
@@ -76,4 +73,4 @@ def ResNet(HiddenLayers, LearningRate, Optimizer, NumFilters, Activation, Kernel
   return res_net_model
 
 
-ResNet(HiddenLayers=32, LearningRate=.001, Optimizer="RMSprop", NumFilters=96, Activation="relu", KernelSize=3, Momentum=.9, Epochs=10, BatchSize=512, JobNum=1)
+ResNet(HiddenLayers=32, LearningRate=.001, Optimizer="RMSprop", NumFilters=96, Activation="relu", KernelSize=3, Momentum=.9, Epochs=50, BatchSize=512, JobNum=1)

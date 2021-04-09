@@ -52,6 +52,7 @@ def ResNetModel(HiddenLayers, LearningRate, Optimizer, NumFilters, Activation, K
 
   ############### Train ###############################
   options = {opt: OPTMZ_ARGS[Optimizer][opt] for opt in OPTMZ_ARGS[Optimizer]}
+
   for o in options:
     options[o] = eval(options[o])
 

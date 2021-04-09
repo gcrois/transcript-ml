@@ -8,7 +8,9 @@ X, Y = pickle.load(open("data/400k_training_data.pickle", "rb"))
 
 print(model.summary())
 
-print("Testing:")
-model.evaluate(X[:1000], Y[:1000])
+print("Testing on 1000 examples:")
+
+results = model.evaluate(X[:1000], Y[:1000])
+print(results)
 
 print(model.layers[0].get_weights())
