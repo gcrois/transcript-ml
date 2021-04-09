@@ -14,10 +14,17 @@ model.load_weights("training_1/cp.ckpt")
 print("Loading the data")
 X, Y = pickle.load(open("data/400k_training_data.pickle", "rb"))
 
+#   Shorten it quickly  #
+X = X[:1000]
+Y = Y[:1000]
+
+print("Quick evaluation: ")
+print(model.evaluate(X, Y))
+
 print("Predicting")
 predictions = model.predict(X)
 
-matrix = tf.math.confusion_matrix(Y, predictions)
+matrix = tf.math.confusion_matrix(Y, predictions, num_classes=24)
 
 print("Trying to print the matrix")
 print(matrix)
