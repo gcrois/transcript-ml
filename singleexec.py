@@ -8,7 +8,7 @@ import pickle
 job_n = sys.argv[1]
 gpu_n = sys.argv[2]
 
-jobs = pickle.load( open( f"data/j{job_n}.pickle", "rb" ) )
+jobs = pickle.load( open( f"data/j{job_n}.pickle", "rb" ) )[163:]
 
 data = pd.DataFrame(
     columns=["HiddenLayers", "LearningRate", "Optimizer",
@@ -18,7 +18,7 @@ data = pd.DataFrame(
 )
 
 filename = f"data/{job_n}_results.csv"
-data.to_csv(filename, header=True)
+#data.to_csv(filename, header=True)
 
 print(f"Starting job #{job_n} on gpu #{gpu_n}")
 
